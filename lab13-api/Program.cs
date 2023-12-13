@@ -10,9 +10,7 @@ using System.Text;
 using lab13_api.Models.Request;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -39,39 +37,23 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuer = true,
         ValidateLifetime = false,
         ValidateIssuerSigningKey = true,
-
     };
 });
 var app = builder.Build();
-
-
 // Agregar un nuevo servicio en el program.cs
-
-
-
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
-
-// Agregar el middleware de autenticación y autorización
-
-
+// Agregar el middleware de autenticaciÃ³n y autorizaciÃ³n
 //app.UseAuthorization();
-
 // Agregar el el minimal API security/createtoken
-
 app.MapPost("/security/createToken,",
 [AllowAnonymous] (UserRequest user) =>
 {
@@ -100,7 +82,6 @@ app.MapPost("/security/createToken,",
             (new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha512Signature)
         };
-
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         var jwtToken = tokenHandler.WriteToken(token);
@@ -109,6 +90,4 @@ app.MapPost("/security/createToken,",
     }
     return Results.Unauthorized();
 });
-
-
 app.Run();
