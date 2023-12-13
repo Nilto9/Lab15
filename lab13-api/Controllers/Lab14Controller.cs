@@ -33,14 +33,10 @@ namespace lab13_api.Controllers
         public void DeleteCourseExample2(CourseRequestExample2 request)
         {
             var res = _context.Courses.Find(request.CourseID);
-
             res.IsActive = false;
-
             _context.Entry(res).State = EntityState.Modified;
             _context.SaveChanges();
         }
-
-
 
         [HttpPost(Name = "InsertGrade")]
         public void PostGradeExample3(GradeRequestExample3 request)
@@ -58,7 +54,6 @@ namespace lab13_api.Controllers
         public void DeleteGradeExample4(GradeRequestExample4 request)
         {
             var res = _context.Grades.Find(request.GradeID);
-
             res.IsActive = false;
             _context.Entry(res).State = EntityState.Modified;
             _context.SaveChanges();
@@ -84,10 +79,8 @@ namespace lab13_api.Controllers
         public void UpdateStudentExample6(StudentRequestInsertExample6 request)
         {
             var student = _context.Students.Find(request.StudentID);
-
             student.Phone = request.Phone;
             student.Email = request.Email;
-
             _context.Entry(student).State = EntityState.Modified;
             _context.SaveChanges();
         }
@@ -96,10 +89,8 @@ namespace lab13_api.Controllers
         public void UpdateStudentExample7(StudentRequestUpdateExample7 request)
         {
             var student = _context.Students.Find(request.StudentID);
-
             student.FirstName = request.FirstName;
             student.LastName = request.LastName;
-
             _context.Entry(student).State = EntityState.Modified;
             _context.SaveChanges();
         }
@@ -125,13 +116,10 @@ namespace lab13_api.Controllers
         {
 
             var course = request.Courses.Select(x => x.CourseID).ToList();
-
             var coursesToUpdate = _context.Courses
             .Where(c => course.Contains(c.CourseID))
             .ToList();
-
             coursesToUpdate.ForEach(c => c.IsActive = false);
-
             _context.Courses.UpdateRange(coursesToUpdate);
             _context.SaveChanges();
         }
@@ -141,20 +129,14 @@ namespace lab13_api.Controllers
         public void InsertEnrollmentExample10(EnrollementRequestInsertExample10 request)
         {
             var student = _context.Students.FirstOrDefault(s => s.StudentID == request.StudentID);
-            // var student = _context.Students.Find(request.StudentID);
-
             var courseIDs = request.Courses.Select(c => c.CourseID).ToList();
-
             var existingCourses = _context.Courses.Where(c => courseIDs.Contains(c.CourseID)).ToList();
-
             var enrollments = existingCourses.Select(course => new Enrollment
             {
                 Student = student,
                 Course = course,
                 date = DateTime.Now
-
             }).ToList();
-
             _context.Enrollments.AddRange(enrollments);
             _context.SaveChanges();
         }
