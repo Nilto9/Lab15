@@ -45,7 +45,6 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
             return grade;
         }
 
@@ -58,9 +57,7 @@ namespace lab13_api.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(grade).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,7 +73,6 @@ namespace lab13_api.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -108,16 +104,11 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
-
             grade.IsActive = false;
             _context.Entry(grade).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
-
-
 
         private bool GradeExists(int id)
         {
