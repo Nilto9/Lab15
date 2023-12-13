@@ -46,7 +46,6 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
             return course;
         }
 
@@ -59,9 +58,7 @@ namespace lab13_api.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(course).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
@@ -77,7 +74,6 @@ namespace lab13_api.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -92,10 +88,8 @@ namespace lab13_api.Controllers
           }
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetCourse", new { id = course.CourseID }, course);
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
@@ -109,38 +103,11 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
-
             course.IsActive = false;
             _context.Entry(course).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
-
-
-
-
-        // DELETE: api/Courses/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteCourse(int id)
-        //{
-        //    if (_context.Courses == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var course = await _context.Courses.FindAsync(id);
-        //    if (course == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Courses.Remove(course);
-        //    await _context.SaveChangesAsync();
-
-        //    return NoContent();
-        //}
-       
 
         private bool CourseExists(int id)
         {
