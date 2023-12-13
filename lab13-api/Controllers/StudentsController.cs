@@ -14,7 +14,6 @@ namespace lab13_api.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly SchoolContext _context;
-
         public StudentsController(SchoolContext context)
         {
             _context = context;
@@ -31,7 +30,6 @@ namespace lab13_api.Controllers
             return await _context.Students.ToListAsync();
         }
 
-
         // GET: api/Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
@@ -46,7 +44,6 @@ namespace lab13_api.Controllers
             {
                 return NotFound();
             }
-
             return student;
         }
 
@@ -59,7 +56,6 @@ namespace lab13_api.Controllers
             {
                 return BadRequest();
             }
-
             _context.Entry(student).State = EntityState.Modified;
 
             try
@@ -77,7 +73,6 @@ namespace lab13_api.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -112,7 +107,6 @@ namespace lab13_api.Controllers
 
             _context.Students.Remove(student);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
